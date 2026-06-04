@@ -10,6 +10,11 @@ if (strpos($uri, '/' . $projectName) !== false) {
 } else {
     $base_url = $protocol . $host . '/';
 }
+
+// Inicia sessão se ainda não iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -18,12 +23,10 @@ if (strpos($uri, '/' . $projectName) !== false) {
     <meta name="viewport" content="width=device-width, initial-scale=device-width, initial-scale=1.0">
     <title><?= isset($page_title) ? $page_title . ' - Style Barber' : 'Style Barber' ?></title>
     
-    <!-- Google Fonts - Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -34,17 +37,10 @@ if (strpos($uri, '/' . $projectName) !== false) {
                     },
                     colors: {
                         gold: {
-                            50: '#fdfbeb',
-                            100: '#fbf3c9',
-                            200: '#f7e593',
-                            300: '#f2cf53',
-                            400: '#ebb925',
-                            500: '#d99f16',
-                            600: '#bc7f10',
-                            700: '#965e10',
-                            800: '#7a4b12',
-                            900: '#643d14',
-                            950: '#3a2007',
+                            50: '#fdfbeb', 100: '#fbf3c9', 200: '#f7e593',
+                            300: '#f2cf53', 400: '#ebb925', 500: '#d99f16',
+                            600: '#bc7f10', 700: '#965e10', 800: '#7a4b12',
+                            900: '#643d14', 950: '#3a2007',
                         }
                     }
                 }
@@ -52,11 +48,9 @@ if (strpos($uri, '/' . $projectName) !== false) {
         }
     </script>
     
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Efeito de desfoque de vidro personalizado */
         .glass-panel {
             background: rgba(23, 23, 23, 0.7);
             backdrop-filter: blur(12px);
@@ -69,28 +63,18 @@ if (strpos($uri, '/' . $projectName) !== false) {
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d99f16;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d99f16; }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-gold-500 selection:text-neutral-950">
 
-    <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 glass-panel border-b border-neutral-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
+
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="<?= $base_url ?>index.php" class="flex items-center gap-3 group">
@@ -121,11 +105,16 @@ if (strpos($uri, '/' . $projectName) !== false) {
                     <a href="<?= $base_url ?>usuarios/read.php" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 <?= isset($active_tab) && $active_tab == 'usuarios' ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20' : 'text-neutral-400 hover:text-white hover:bg-neutral-900/60' ?>">
                         <i class="fa-solid fa-users-cog mr-2"></i>Usuários
                     </a>
+
+                    <!-- ✅ Botão Sair (Desktop) -->
+                    <a href="<?= $base_url ?>logout.php" class="ml-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-red-400 hover:text-white hover:bg-red-500/20 border border-red-500/20">
+                        <i class="fa-solid fa-right-from-bracket mr-2"></i>Sair
+                    </a>
                 </nav>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 focus:outline-none">
                         <span class="sr-only">Abrir menu</span>
                         <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                     </button>
@@ -151,8 +140,23 @@ if (strpos($uri, '/' . $projectName) !== false) {
                 <a href="<?= $base_url ?>usuarios/read.php" class="block px-4 py-2.5 rounded-lg text-base font-medium <?= isset($active_tab) && $active_tab == 'usuarios' ? 'bg-gold-500/10 text-gold-400' : 'text-neutral-400 hover:text-white hover:bg-neutral-900' ?>">
                     <i class="fa-solid fa-users-cog mr-3"></i>Usuários
                 </a>
+
+                <!-- ✅ Botão Sair (Mobile) -->
+                <a href="<?= $base_url ?>logout.php" class="block px-4 py-2.5 rounded-lg text-base font-medium text-red-400 hover:text-white hover:bg-red-500/20">
+                    <i class="fa-solid fa-right-from-bracket mr-3"></i>Sair
+                </a>
             </div>
         </div>
     </header>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+    </script>

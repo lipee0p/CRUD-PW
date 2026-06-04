@@ -1,4 +1,11 @@
 <?php
+// ✅ Proteção de sessão — redireciona para login se não estiver logado
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
 $page_title = 'Dashboard';
 $active_tab = 'dashboard';
 
@@ -12,7 +19,6 @@ $total_clientes = 0;
 $total_funcionarios = 0;
 
 try {
-    // Busca estatísticas rápidas
     $stmt = $pdo->query("SELECT COUNT(*) as total FROM usuarios");
     $total_usuarios = $stmt->fetch()['total'];
 
@@ -25,8 +31,7 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) as total FROM funcionarios");
     $total_funcionarios = $stmt->fetch()['total'];
 } catch (PDOException $e) {
-    // Se as tabelas ainda não existirem, ignora silenciosamente para não quebrar a página inicial
-    // O usuário poderá rodar a criação no XAMPP ou via Docker
+    // Ignora silenciosamente
 }
 
 require_once __DIR__ . '/includes/header.php';
