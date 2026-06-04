@@ -5,13 +5,12 @@
 
 function getConexao(): PDO {
     $host   = 'localhost';
-    $banco  = 'style-barber';
+    $banco  = 'style_barber';
     $usuario = 'root';
-    $senha  = '';  // ← tente vazio primeiro; se não funcionar, coloque 'local'
+    $senha  = 'root';  // ← tente vazio primeiro; se não funcionar, coloque 'local'
 
     try {
-       $pdo = new PDO("mysql:host=db;dbname={$banco};charset=utf8mb4", $usuario, $senha);
-        ;
+      $pdo = new PDO("mysql:host=db;dbname=style_barber;charset=utf8mb4", $usuario, $senha);
 
         // Mostra erros do banco como exceções PHP
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
