@@ -7,7 +7,7 @@ if (isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-require_once 'login.php'; // ← inclua seu arquivo de conexão
+require_once 'conexao.php'; // ← inclua seu arquivo de conexão
 $erro = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // ← abre
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {  // ← abre
 <!-- Simple Footer for Transactional Page -->
 <footer class="fixed bottom-0 w-full z-50 flex justify-center items-center h-16 px-margin-desktop md:justify-start pointer-events-none">
 <p class="font-label-md text-label-md text-on-surface-variant/40 tracking-tight uppercase pointer-events-auto">
-            © 2026 THE BARBER'S CRAFT. FAÇA JÁ SEU AGENDAMENTO.
+            
         </p>
 </footer>
 </body></html>
