@@ -116,10 +116,6 @@ tailwind.config = {
 
   <section class="flex flex-col justify-center items-center px-margin-mobile md:px-margin-desktop bg-background z-10">
     <div class="w-full max-w-md space-y-12">
-
-      <div class="space-y-4">
-        <h1 class="font-headline-lg text-headline-lg text-on-surface">Bem-vindo de volta</h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant">Entre com suas credenciais para gerenciar seus agendamentos.</p>
       </div>
 
       <!-- ✅ CORRIGIDO: method="POST" adicionado -->
@@ -152,18 +148,10 @@ tailwind.config = {
         </div>
 
         <button class="w-full h-14 bg-secondary text-on-secondary font-label-md text-label-md uppercase tracking-widest hover:bg-primary transition-all duration-300 active:opacity-80" type="submit">
-          Acessar Conta
+          Entrar no sistema
         </button>
 
       </form>
-
-      <div class="pt-8 border-t border-outline-variant/10 flex flex-col items-center gap-4">
-        <p class="font-body-md text-body-md text-on-surface-variant">Não possui uma conta?</p>
-        <!-- ✅ CORRIGIDO: href aponta para cadastro.php -->
-        <a class="font-label-md text-label-md text-secondary uppercase tracking-widest hover:underline underline-offset-8 transition-all" href="cadastro.php">
-          Cadastre-se
-        </a>
-      </div>
 
     </div>
   </section>
