@@ -10,7 +10,6 @@ function getConexao(): PDO {
     $senha  = 'style_pass';  // ← tente vazio primeiro; se não funcionar, coloque 'local'
 
     try {
-        <?php
 $host = 'db'; // Nome do serviço que está no seu docker-compose
 $banco = 'style_barber'; // Nome do seu banco de dados
 $usuario = 'style_user'; // Mude de 'root' para 'style_user'
@@ -29,3 +28,4 @@ try {
     } catch (PDOException $e) {
         die('Erro de conexão: ' . $e->getMessage());
     }
+}
